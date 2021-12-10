@@ -1,0 +1,21 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    username: root
+    password: Abc123!_
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.98.46.93:3306/springsecurity?serverTimezone=UTC
+
+mybatis:
+  mapper-locations: mapper/*.xml
+  type-aliases-package: pojo
+  configuration:
+    map-underscore-to-camel-case: true
+
+##属性注入
+rsa:
+  key:
+    pubKeyFile: id_public
+    priKeyFile: id_private

@@ -1,0 +1,5 @@
+##属性注入
+rsa:
+  key:
+    pubKeyFile: id_public
+    priKeyFile: id_private
