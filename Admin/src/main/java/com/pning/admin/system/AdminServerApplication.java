@@ -1,22 +1,21 @@
-package com.pning.auth;
+package com.pning.admin.system;
 
+import com.pning.common.properties.RsaKeyProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import com.pning.common.properties.RsaKeyProperties;
 
 /**
  /**
  * @Author Pning
- * @Date 2021/12/10 9:13
- * 记得把写好的RsaKeyProperties放入ioc容器中
+ * @Date 2021/14/10 9:13
  **/
 
-@SpringBootApplication
 @EnableConfigurationProperties(RsaKeyProperties.class)
-public class AuthServerApplication {
+@SpringBootApplication
+public class AdminServerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AuthServerApplication.class,args);
+        SpringApplication.run(AdminServerApplication.class,args);
     }
 }

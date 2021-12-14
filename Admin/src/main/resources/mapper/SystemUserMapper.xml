@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pning.admin.system.auth.mapper.SystemUserMapper">
+
+   <select id="selectSystemUserByUserName" resultMap="SystemUserLogin">
+        SELECT
+            u.username,
+            u.password,
+            m.m_authority
+        FROM sys_user u
+             LEFT JOIN sys_user_role ur ON u.id=ur.u_id
+             LEFT JOIN sys_role r ON  ur.r_id=r.r_id
+             LEFT JOIN sys_role_menu rm ON  r.r_id = rm.r_id
+             LEFT JOIN sys_menu m ON  m.m_id = rm.m_id
+        where u.username=#{username}
+   </select>
+
+    <resultMap type="com.pning.admin.system.auth.pojo.SystemUser" id="SystemUserLogin">
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <collection property="systemroles" ofType="com.pning.admin.system.auth.pojo.SystemRole">
+            <result property="authority" column="m_authority"/>
+        </collection>
+    </resultMap>
+
+</mapper>

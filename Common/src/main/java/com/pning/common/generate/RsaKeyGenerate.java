@@ -1,14 +1,13 @@
 package com.pning.common.generate;
 
-import com.pning.common.constant.FilePathConstant;
 import com.pning.common.utils.RsaUtils;
 import org.junit.Test;
+import org.springframework.stereotype.Component;
 
 /**
  * @Author Pning
  * @Date 2021/12/10 8:25
  **/
-
 public class RsaKeyGenerate {
 
     /**

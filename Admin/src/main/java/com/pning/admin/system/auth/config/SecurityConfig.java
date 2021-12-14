@@ -1,6 +1,7 @@
-package com.pning.auth.config;
+package com.pning.admin.system.auth.config;
 
 
+import com.pning.admin.system.auth.filter.JwtVerifyFilter;
 import com.pning.common.properties.RsaKeyProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,9 +13,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
-import com.pning.auth.filter.JwtLoginFilter;
-import com.pning.auth.filter.JwtVerifyFilter;
-import com.pning.auth.service.ISystemUser;
+import com.pning.admin.system.auth.filter.JwtLoginFilter;
+import com.pning.admin.system.auth.service.ISystemUser;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -22,10 +22,9 @@ import javax.sql.DataSource;
 /**
  * @Author Pning
  * @Date 2021/12/10 9:13
- * 向SpringSecurity中添加我们自己写的两个拦截器：
+ * 向SpringSecurity中添加我们自己写的拦截器：
  *      1:JwtLoginFilter
- *      2:JwtVerifyFilter
- *      3.禁用掉session会话管理，因为我们已经禁用session使用token了
+ *     2.禁用掉session会话管理，因为我们已经禁用session使用token了
  **/
 
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)

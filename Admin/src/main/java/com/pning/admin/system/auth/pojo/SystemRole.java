@@ -1,4 +1,4 @@
-package com.pning.auth.pojo;
+package com.pning.admin.system.auth.pojo;
 
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
