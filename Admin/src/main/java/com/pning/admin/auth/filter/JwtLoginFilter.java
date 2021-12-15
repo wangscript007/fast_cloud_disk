@@ -1,4 +1,4 @@
-package com.pning.admin.system.auth.filter;
+package com.pning.admin.auth.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pning.common.utils.JwtUtils;
@@ -8,8 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import com.pning.common.properties.RsaKeyProperties;
-import com.pning.admin.system.auth.pojo.SystemRole;
-import com.pning.admin.system.auth.pojo.SystemUser;
+import com.pning.admin.auth.pojo.SystemRole;
+import com.pning.admin.auth.pojo.SystemUser;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

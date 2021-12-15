@@ -1,4 +1,4 @@
-package com.pning.admin.system.auth.service.imp;
+package com.pning.admin.auth.service.imp;
 
 /**
  * @Author Pning
@@ -8,8 +8,8 @@ package com.pning.admin.system.auth.service.imp;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import com.pning.admin.system.auth.mapper.SystemUserMapper;
-import com.pning.admin.system.auth.service.ISystemUser;
+import com.pning.admin.auth.mapper.SystemUserMapper;
+import com.pning.admin.auth.service.ISystemUser;
 
 import javax.annotation.Resource;
 

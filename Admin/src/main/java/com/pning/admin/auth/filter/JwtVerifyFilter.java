@@ -1,7 +1,7 @@
-package com.pning.admin.system.auth.filter;
+package com.pning.admin.auth.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pning.admin.system.auth.pojo.SystemUser;
+import com.pning.admin.auth.pojo.SystemUser;
 import com.pning.common.pojo.Payload;
 import com.pning.common.properties.RsaKeyProperties;
 import com.pning.common.utils.JwtUtils;

@@ -1,4 +1,4 @@
-package com.pning.admin.system.auth.pojo;
+package com.pning.admin.auth.pojo;
 
 /**
  * @Author Pning

@@ -12,6 +12,12 @@
     <artifactId>Common</artifactId>
 
     <dependencies>
+        <!--通过GitHub:https://gitee.com/fastdfs100/fastdfs-client-java.git下载再通过maven的mvn clean install 安装的本地依赖-->
+        <dependency>
+            <groupId>org.csource</groupId>
+            <artifactId>fastdfs-client-java</artifactId>
+            <version>1.29-SNAPSHOT</version>
+        </dependency>
         <!--jwt的相关依赖-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>

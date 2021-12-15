@@ -1,7 +1,7 @@
-package com.pning.admin.system.auth.config;
+package com.pning.admin.auth.config;
 
 
-import com.pning.admin.system.auth.filter.JwtVerifyFilter;
+import com.pning.admin.auth.filter.JwtVerifyFilter;
 import com.pning.common.properties.RsaKeyProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,8 +13,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
-import com.pning.admin.system.auth.filter.JwtLoginFilter;
-import com.pning.admin.system.auth.service.ISystemUser;
+import com.pning.admin.auth.filter.JwtLoginFilter;
+import com.pning.admin.auth.service.ISystemUser;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;

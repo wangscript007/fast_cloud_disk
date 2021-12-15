@@ -1,4 +1,4 @@
-package com.pning.admin.system.test.controller;
+package com.pning.admin.test.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

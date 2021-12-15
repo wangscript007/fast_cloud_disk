@@ -1,4 +1,4 @@
-package com.pning.admin.system;
+package com.pning.admin;
 
 import com.pning.common.properties.RsaKeyProperties;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +14,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @EnableConfigurationProperties(RsaKeyProperties.class)
 @SpringBootApplication
 public class AdminServerApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(AdminServerApplication.class,args);
     }

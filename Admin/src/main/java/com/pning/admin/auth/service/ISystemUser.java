@@ -1,4 +1,4 @@
-package com.pning.admin.system.auth.service;
+package com.pning.admin.auth.service;
 
 /**
  * @Author Pning

@@ -1,4 +1,4 @@
-package com.pning.admin.system.auth.mapper;
+package com.pning.admin.auth.mapper;
 
 /**
  * @Author Pning
@@ -8,7 +8,7 @@ package com.pning.admin.system.auth.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import com.pning.admin.system.auth.pojo.SystemUser;
+import com.pning.admin.auth.pojo.SystemUser;
 
 
 @Mapper
