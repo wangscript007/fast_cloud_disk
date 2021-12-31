@@ -12,6 +12,7 @@
     <artifactId>Admin</artifactId>
 
     <dependencies>
+
         <!--SpringMvc环境-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -36,6 +37,12 @@
         <dependency>
             <groupId>com.pning</groupId>
             <artifactId>Common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <!--自己写的token生成的Core模块-->
+        <dependency>
+            <groupId>com.pning</groupId>
+            <artifactId>Core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <!--测试依赖-->

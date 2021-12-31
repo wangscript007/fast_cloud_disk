@@ -37,18 +37,16 @@ public class FastDFSUtil {
 
     /**
      *
-     * @param local_filename    本地文件路径
+     * @param file_buff         文件
      * @param file_ext_name     上传文件的拓展名
      * @param meta_list         文件的属性文件一般不上传
      * @return
      */
-    public static String[] upload(String local_filename, String file_ext_name, NameValuePair[] meta_list){
+    public static String[] upload(byte[] file_buff, String file_ext_name, NameValuePair[] meta_list){
         String[] rs = null;
         try {
-            //本地上传：upload_appender_file(本地文件路径,上传文件的拓展名,文件的属性文件一般不上传)
-            rs = sc.upload_appender_file(local_filename,file_ext_name,meta_list);
             //返回字符串数组为组名和存储路径，需要保存到数据库中
-            System.out.println(Arrays.toString(rs));
+            rs = sc.upload_appender_file(file_buff,file_ext_name,meta_list);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (MyException e) {
@@ -61,22 +59,19 @@ public class FastDFSUtil {
     /**
      * @param group_name        `组名
      * @param remote_filename    存储路径
-     * @param local_filename     本地文件保存路径
      * @return
      */
-    public static int download(String group_name, String remote_filename, String local_filename){
-        int rs = 0;
+    public static byte[] download(String group_name, String remote_filename){
+        byte[] rs;
         try {
-            //本地上传：download_file(组名,存储路径,本地文件保存路径)
-            rs  = sc.download_file(group_name,remote_filename,local_filename);
+            rs  = sc.download_file(group_name, remote_filename);
             //0为成功，其他失败
-            System.out.println(rs);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (MyException e) {
             e.printStackTrace();
         }finally {
-            return rs;
+            return null;
         }
     }
 
@@ -90,7 +85,6 @@ public class FastDFSUtil {
         try {
             rs = sc.delete_file(group_name, remote_filename);
             //0为成功，其他失败
-            System.out.println(rs);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (MyException e) {

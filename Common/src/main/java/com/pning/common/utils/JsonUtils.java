@@ -39,7 +39,6 @@ public class JsonUtils {
             logger.error("json序列化出错：" + obj, e);
             return null;
         }
-
     }
 
     /**

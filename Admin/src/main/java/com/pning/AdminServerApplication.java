@@ -1,11 +1,11 @@
-package com.pning.admin;
+package com.pning;
 
 import com.pning.common.properties.RsaKeyProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.ComponentScan;
 
-/**
  /**
  * @Author Pning
  * @Date 2021/14/10 9:13

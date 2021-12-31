@@ -17,6 +17,13 @@
             <groupId>org.csource</groupId>
             <artifactId>fastdfs-client-java</artifactId>
             <version>1.29-SNAPSHOT</version>
+            <!--排除这个slf4j-log4j12,解决该模块与SpringBoot启动器中存在的日志依赖冲突-->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!--jwt的相关依赖-->
         <dependency>
@@ -24,6 +31,7 @@
             <artifactId>jjwt-api</artifactId>
             <version>0.10.7</version>
         </dependency>
+
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>

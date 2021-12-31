@@ -1,5 +1,5 @@
 server:
-  port: 81
+  port: 82
 spring:
   datasource:
     username: root
@@ -7,8 +7,3 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/fast_cloud_disk?serverTimezone=UTC
 
-mybatis:
-  mapper-locations: mapper/*.xml
-  type-aliases-package: pojo
-  configuration:
-    map-underscore-to-camel-case: true
