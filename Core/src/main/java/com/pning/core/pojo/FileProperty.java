@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,6 +14,7 @@ import java.io.Serializable;
  * @Date 2021-12-30
  */
 @Data
+@AllArgsConstructor
 @TableName("file_property")
 public class FileProperty implements Serializable {
 
@@ -46,9 +48,9 @@ public class FileProperty implements Serializable {
     * 文件大小
     */
     @TableField("file_size")
-    private String fileSize;
+    private Long fileSize;
 
-    public FileProperty(String fileGroup, String filePath, String fileExtname, String fileSize) {
+    public FileProperty(String fileGroup, String filePath, String fileExtname, Long fileSize) {
         this.fileGroup = fileGroup;
         this.filePath = filePath;
         this.fileExtname = fileExtname;

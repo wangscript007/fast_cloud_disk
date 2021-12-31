@@ -62,16 +62,15 @@ public class FastDFSUtil {
      * @return
      */
     public static byte[] download(String group_name, String remote_filename){
-        byte[] rs;
+        byte[] rs = null;
         try {
             rs  = sc.download_file(group_name, remote_filename);
-            //0为成功，其他失败
         } catch (IOException e) {
             e.printStackTrace();
         } catch (MyException e) {
             e.printStackTrace();
         }finally {
-            return null;
+            return rs;
         }
     }
 
