@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import org.joda.time.DateTime;
+
 import java.io.Serializable;
 
 
@@ -54,12 +56,18 @@ public class UserFile implements Serializable {
     */
     @TableField("file_sort")
     private Integer fileSort;
+    /**
+     * 上传时间
+     */
+    @TableField("create_time")
+    private DateTime createTime;
 
-    public UserFile(Integer ufPid, String username, Integer fileId,String file_name, Integer fileSort) {
+    public UserFile(Integer ufPid, String username, Integer fileId,String file_name, Integer fileSort, DateTime createTime) {
         this.ufPid = ufPid;
         this.username = username;
         this.fileId = fileId;
         this.file_name = file_name;
         this.fileSort = fileSort;
+        this.createTime = createTime;
     }
 }

@@ -46,9 +46,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .tokenValiditySeconds(60)
                 .tokenRepository(persistentTokenRepository());
         //添加登录拦截器
-        //http.addFilter(new JwtLoginFilter(super.authenticationManager(),rsaKeyProperties));
+        http.addFilter(new JwtLoginFilter(super.authenticationManager(),rsaKeyProperties));
         //添加认证返回的拦截器
-        //http.addFilter(new JwtVerifyFilter(super.authenticationManager(),rsaKeyProperties));
+        http.addFilter(new JwtVerifyFilter(super.authenticationManager(),rsaKeyProperties));
         //禁用session管理
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.csrf().disable();

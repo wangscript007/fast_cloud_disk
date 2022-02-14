@@ -1,5 +1,8 @@
 package com.pning.common.pojo;
 
+import lombok.Data;
+import org.joda.time.DateTime;
+
 /**
  * @Author Pning
  * @Date 2021/12/14 15:49
@@ -19,6 +22,10 @@ public class UserMessage {
      */
     private String fullname;
     /**
+     * 性别：1男；0女
+     */
+    private String sex;
+    /**
      * 手机号码
      */
     private String phone;
@@ -34,4 +41,20 @@ public class UserMessage {
      * 账号状态：0暂时封号，1正常账号，2永久封号
      */
     private String status;
+    /**
+     * 创建日期
+     */
+    private DateTime create_time;
+    /**
+     * 最后更新日期
+     */
+    private DateTime update_time;
+    /**
+     * 最后登录日期
+     */
+    private DateTime last_login_time;
+    /**
+     * 用户描述
+     */
+    private String description;
 }

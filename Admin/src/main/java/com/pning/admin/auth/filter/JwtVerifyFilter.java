@@ -43,7 +43,7 @@ public class JwtVerifyFilter extends BasicAuthenticationFilter {
      * @throws IOException
      * @throws ServletException
      */
-    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)  {
         try {
             //请求体的头中是否包含Authorization
             String header = request.getHeader("Authorization");
@@ -58,6 +58,12 @@ public class JwtVerifyFilter extends BasicAuthenticationFilter {
             //获取后，将Authentication写入SecurityContextHolder中供后序使用
             SecurityContextHolder.getContext().setAuthentication(authentication);//获取当前登录用户的信息
             chain.doFilter(request, response);//交给SpringSecurity的后续过滤器
+        }catch (ServletException e){
+            responseJson(response);
+            e.printStackTrace();
+        }catch (IOException e){
+            responseJson(response);
+            e.printStackTrace();
         } catch (Exception e) {
             responseJson(response);
             e.printStackTrace();

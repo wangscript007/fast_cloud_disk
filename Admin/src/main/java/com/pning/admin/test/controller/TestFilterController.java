@@ -1,5 +1,6 @@
 package com.pning.admin.test.controller;
 
+import com.pning.admin.fastdfs.utlits.UserUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ public class TestFilterController {
     @RolesAllowed(value = {"user:view"})
     @GetMapping("/list")
     public String test(){
-        System.out.println("权限拦截成功");
+        System.out.println("权限拦截成功"+ UserUtil.getUserName());
         return "testSuccess";
     }
 
