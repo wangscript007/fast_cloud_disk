@@ -7,7 +7,7 @@ package com.pning.common.utils;
  **/
 public class ApiReturnUtil {
 
-    public static String error(String message){
+    public static Object error(Object message){
         return message;
     }
     public static String success(String message){

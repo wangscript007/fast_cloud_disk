@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.joda.time.DateTime;
 
 import java.io.Serializable;
@@ -16,6 +17,7 @@ import java.io.Serializable;
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @TableName("file_property")
 public class FileProperty implements Serializable {
 
@@ -62,7 +64,24 @@ public class FileProperty implements Serializable {
     @TableField("upload_time")
     private DateTime uploadTime;
 
-    public FileProperty(String fileGroup, String filePath, String fileExtname, Long fileSize, String username, DateTime uploadTime) {
+    /**
+     * 列表查询使用的时间范围
+     */
+    @TableField(exist = false)
+    private DateTime startTime;
+    @TableField(exist = false)
+    private DateTime endTime;
+
+    /**
+     * 列表查询使用的文件大小范围
+     */
+    @TableField(exist = false)
+    private long startSize;
+    @TableField(exist = false)
+    private long endSize;
+
+    public FileProperty(Integer fileId, String fileGroup, String filePath, String fileExtname, Long fileSize, String username, DateTime uploadTime) {
+        this.fileId = fileId;
         this.fileGroup = fileGroup;
         this.filePath = filePath;
         this.fileExtname = fileExtname;
@@ -70,4 +89,12 @@ public class FileProperty implements Serializable {
         this.username = username;
         this.uploadTime = uploadTime;
     }
+    public FileProperty(Integer fileId, String fileGroup, String filePath, String fileExtname, String username) {
+        this.fileId = fileId;
+        this.fileGroup = fileGroup;
+        this.filePath = filePath;
+        this.fileExtname = fileExtname;
+        this.username = username;
+    }
+
 }

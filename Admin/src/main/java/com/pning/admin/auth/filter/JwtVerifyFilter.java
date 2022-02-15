@@ -82,7 +82,7 @@ public class JwtVerifyFilter extends BasicAuthenticationFilter {
             PrintWriter out = response.getWriter();
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("code", HttpServletResponse.SC_FORBIDDEN);//权限不足代号：403
-            map.put("message", "请登录！");
+            map.put("message", "未登录或权限不足！");
             out.write(new ObjectMapper().writeValueAsString(map));
             out.flush();
             out.close();

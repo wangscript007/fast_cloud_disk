@@ -42,9 +42,9 @@ public interface IFilePropertyService {
     /**
      * 分页查询
      * @param page
-     * @param queryWrapper
+     * @param fileProperty
      * @return
      */
-    IPage<FileProperty> pageList(Page page, QueryWrapper<FileProperty> queryWrapper);
+    IPage<FileProperty> pageList(Page page, FileProperty fileProperty);
 
 }

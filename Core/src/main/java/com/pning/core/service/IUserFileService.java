@@ -51,9 +51,9 @@ public interface IUserFileService {
     /**
      *分页查询
      * @param page
-     * @param queryWrapper
+     * @param userFile
      * @return
      */
-    IPage<UserFile> pageList(Page page, QueryWrapper<UserFile> queryWrapper);
+    IPage<UserFile> pageList(Page page, UserFile userFile);
 
 }

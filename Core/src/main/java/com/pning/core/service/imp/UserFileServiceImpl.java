@@ -55,7 +55,20 @@ public class UserFileServiceImpl implements IUserFileService {
 	}
 
     @Override
-    public IPage<UserFile> pageList(Page page, QueryWrapper<UserFile> queryWrapper) {
+    public IPage<UserFile> pageList(Page page,UserFile userFile) {
+        QueryWrapper<UserFile> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username",userFile.getUsername());//用户名查询
+        if(userFile!=null) {
+            if (userFile.getUfPid() != null && !"".equals(userFile.getUfPid())) {
+                queryWrapper.eq("uf_pid", userFile.getUfPid());//查询指定目录id下的文件映射
+            }
+            if (userFile.getFileName() != null && !"".equals(userFile.getFileName())) {
+                queryWrapper.like("file_name", userFile.getFileName());//文件名模糊
+            }
+            if (userFile.getStartTime() != null && userFile.getEndTime() != null) {
+                queryWrapper.in("create_time", userFile.getStartTime(), userFile.getEndTime());//映射添加时间的范围查询
+            }
+        }
         return userFileMapper.selectPage(page, queryWrapper);
     }
 

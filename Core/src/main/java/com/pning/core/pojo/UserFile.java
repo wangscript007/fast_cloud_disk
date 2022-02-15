@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.joda.time.DateTime;
 
 import java.io.Serializable;
@@ -15,6 +17,8 @@ import java.io.Serializable;
  * @Date 2021-12-30
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @TableName("user_file")
 public class UserFile implements Serializable {
 
@@ -49,7 +53,7 @@ public class UserFile implements Serializable {
      * 文件名
      */
     @TableField("file_name")
-    private String file_name;
+    private String fileName;
 
     /**
     * 文件类型（0：文件夹；1：文件）
@@ -62,11 +66,19 @@ public class UserFile implements Serializable {
     @TableField("create_time")
     private DateTime createTime;
 
-    public UserFile(Integer ufPid, String username, Integer fileId,String file_name, Integer fileSort, DateTime createTime) {
+    /**
+     * 列表查询使用的时间范围
+     */
+    @TableField(exist = false)
+    private DateTime startTime;
+    @TableField(exist = false)
+    private DateTime endTime;
+
+    public UserFile(Integer ufPid, String username, Integer fileId,String fileName, Integer fileSort, DateTime createTime) {
         this.ufPid = ufPid;
         this.username = username;
         this.fileId = fileId;
-        this.file_name = file_name;
+        this.fileName = fileName;
         this.fileSort = fileSort;
         this.createTime = createTime;
     }

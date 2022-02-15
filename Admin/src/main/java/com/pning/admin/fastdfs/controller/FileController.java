@@ -1,10 +1,11 @@
 package com.pning.admin.fastdfs.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pning.admin.auth.pojo.SystemUser;
 import com.pning.admin.fastdfs.utlits.UserUtil;
+import com.pning.common.pojo.R;
 import com.pning.common.utils.ApiReturnUtil;
 import com.pning.common.utils.FIlePropertieUtil;
 import com.pning.common.utils.FastDFSUtil;
@@ -12,25 +13,25 @@ import com.pning.core.pojo.FileProperty;
 import com.pning.core.pojo.UserFile;
 import com.pning.core.service.IFilePropertyService;
 import com.pning.core.service.IUserFileService;
-import io.swagger.annotations.ApiModel;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
-
+/**
+ * @Author Pning
+ * @Date 2021/12/30 14:25
+ * 文件存储（包含上传下载服务）
+ **/
 @RestController
 @RequestMapping("/file")
 public class FileController {
@@ -38,8 +39,24 @@ public class FileController {
     @Autowired
     IFilePropertyService iFilePropertyService;
 
+
     @Autowired
     IUserFileService iUserFileService;
+    /**
+     * 获取真实文件存储列表
+     * @param page
+     * @param fileProperty
+     * @return
+     */
+    @RolesAllowed(value = {"file:list"})
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    public Object list(@RequestPart(name = "page", required = false) Page page,
+                       @RequestPart(name = "fileProperty", required = false)FileProperty fileProperty) {
+        if(page==null){
+            page = new Page(1,10);//默认第1页，一页10条
+        }
+        return R.ok(iFilePropertyService.pageList(page, fileProperty));
+    }
 
     /**
      * 文件上传
@@ -52,43 +69,23 @@ public class FileController {
     public Object upload(@RequestParam MultipartFile file, @RequestParam int ufPid, HttpServletRequest request) {
         try {
             if (file.isEmpty()) {
-                return ApiReturnUtil.error("文件为空");
+                return R.fail("文件为空");
             } else {
                 //文件后缀名
                 String fileExtName = FIlePropertieUtil.getfileExtName(file.getOriginalFilename());
                 //文件上传
                 String[] filePro = FastDFSUtil.upload(file.getBytes(), fileExtName, null);
-                DateTime dateTime = new DateTime();
                 //文件信息记录
-                FileProperty fileProperty = new FileProperty(filePro[0], filePro[1], fileExtName, file.getSize(), UserUtil.getUserName(),dateTime);
+                DateTime dateTime = new DateTime();
+                FileProperty fileProperty = new FileProperty(null,filePro[0], filePro[1], fileExtName, file.getSize(), UserUtil.getUserName(),dateTime);
                 iFilePropertyService.insert(fileProperty);
+                //文件映射信息记录
                 UserFile userFile = new UserFile(ufPid, UserUtil.getUserName(), fileProperty.getFileId(),file.getOriginalFilename(), "".equals(fileExtName) ? 0 : 1,dateTime);
                 iUserFileService.insert(userFile);
-                return ApiReturnUtil.success("上传成功");
+                return R.ok();
             }
         } catch (Exception e) {
-            return ApiReturnUtil.error("上传错误：" + e.getMessage());
-        }
-    }
-
-    /**
-     * 删除用户文件关联
-     * @param file_id
-     * @return
-     */
-    @RolesAllowed(value = {"file:deletelogic"})
-    @RequestMapping(value = "/deletelogic", method = RequestMethod.POST)
-    public Object deletelogic(@RequestParam int file_id) {
-        try {
-            //删除用户和文件之间的关联，并不删除真实文件
-            Map<String,Object> map = new HashMap<>();
-            map.put("file_id",file_id);
-            map.put("username",UserUtil.getUserName());
-            iUserFileService.delete(map);
-            return ApiReturnUtil.success("删除成功");
-        } catch (Exception e) {
-            //e.printStackTrace();
-            return ApiReturnUtil.error("删除失败：" + e.getMessage());
+            return R.fail("上传错误" );
         }
     }
 
@@ -105,22 +102,26 @@ public class FileController {
             //删除文件
             FileProperty fileProperty = iFilePropertyService.selectById(file_id);
             FastDFSUtil.delete(fileProperty.getFileGroup(),fileProperty.getFilePath());
-            //删除用户和文件之间的关联
-            Map<String,Object> map = new HashMap<>();
-            map.put("file_id",file_id);
-            map.put("username",UserUtil.getUserName());
-            iUserFileService.delete(map);
+            //删除用户和文件之间的关联（后续需求：不能让用户完全不知道的情况下文件被删除，留下个映射让用户以为文件还在，但是下载会失败）
+//            Map<String,Object> map = new HashMap<>();
+//            map.put("file_id",file_id);
+//            map.put("username",UserUtil.getUserName());
+//            iUserFileService.delete(map);
             //删除文件信息
             iFilePropertyService.deleteById(file_id);
-            return ApiReturnUtil.success("文件删除成功");
+            return R.ok();
         } catch (Exception e) {
-            //e.printStackTrace();
-            return ApiReturnUtil.error("上删除失败：" + e.getMessage());
+            e.printStackTrace();
+            return R.fail("删除失败" );
         }
     }
 
-
-    //@RolesAllowed(value = {"file:download"})
+    /**
+     * 文件下载
+     * @param file_id
+     * @return
+     */
+    @RolesAllowed(value = {"file:download"})
     @PermitAll
     @ResponseBody
     @RequestMapping(value = "/download", method = RequestMethod.GET)
@@ -128,6 +129,10 @@ public class FileController {
         //后期添加一个用户是否有该文件的判断
         try {
             FileProperty fileProperty = iFilePropertyService.selectById(file_id);
+            if(fileProperty==null){
+                //文件不存在（应该为真实文件已经被删除只存在映射的情况）
+                return null;
+            }
             byte[] file = FastDFSUtil.download(fileProperty.getFileGroup(), fileProperty.getFilePath());
             HttpHeaders headers = new HttpHeaders();
             //请求头信息
@@ -144,19 +149,7 @@ public class FileController {
         }
     }
 
-    //@RolesAllowed(value = {"file:share"})
-    @PermitAll
-    @ResponseBody
-    @RequestMapping(value = "/share", method = RequestMethod.GET)
-    public UserFile share(@RequestParam int file_id) {
-        try {
 
-            return null;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 
 }
 

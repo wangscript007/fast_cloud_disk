@@ -42,7 +42,31 @@ public class FileImp implements IFilePropertyService {
     }
 
     @Override
-    public IPage<FileProperty> pageList(Page page, QueryWrapper<FileProperty> queryWrapper) {
+    public IPage<FileProperty> pageList(Page page, FileProperty fileProperty) {
+        QueryWrapper<FileProperty> queryWrapper = null;
+        if(fileProperty!=null) {
+            queryWrapper = new QueryWrapper<>();
+            if (fileProperty.getFileId() != null && !"".equals(fileProperty.getFileId())) {
+                queryWrapper.like("file_id", fileProperty.getFileId().toString());//拓展名
+            }
+            if (fileProperty.getFileExtname() != null && !"".equals(fileProperty.getFileExtname())) {
+                queryWrapper.like("file_extname", fileProperty.getFileExtname());//拓展名
+            }
+            if (fileProperty.getFileGroup() != null && !"".equals(fileProperty.getFileGroup())) {
+                queryWrapper.like("file_group", fileProperty.getFileGroup());//归属组
+            }
+            if (fileProperty.getStartTime() != null && fileProperty.getEndTime() != null) {
+                queryWrapper.in("create_time", fileProperty.getStartTime(), fileProperty.getEndTime());//上传时间范围查询
+            }
+            if (fileProperty.getStartSize() >=0 && fileProperty.getEndSize() >=0 && fileProperty.getEndSize() >= fileProperty.getStartSize()){
+                queryWrapper.gt("file_size", fileProperty.getStartSize())
+                            .lt("file_size",  fileProperty.getEndSize());//文件大小范围查询
+            }
+            if (fileProperty.getUsername() != null && !"".equals(fileProperty.getUsername())) {
+                queryWrapper.like("username", fileProperty.getUsername());//用户名模糊查询
+            }
+
+        }
         return filePropertyMapper.selectPage(page,queryWrapper);
     }
 }
