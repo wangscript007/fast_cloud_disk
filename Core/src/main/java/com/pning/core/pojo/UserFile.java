@@ -60,6 +60,12 @@ public class UserFile implements Serializable {
     */
     @TableField("file_sort")
     private Integer fileSort;
+
+    /**
+     * 状态（0：可用；1：禁用）
+     */
+    @TableField("status")
+    private Integer status;
     /**
      * 上传时间
      */

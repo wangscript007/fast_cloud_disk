@@ -26,7 +26,7 @@ public class FileMappingController {
     IUserFileService iUserFileService;
 
     /**
-     * 获取当前用户与文件映射列表
+     * 获取用户与文件映射列表(管理员)
      * @param page
      * @param userFile
      * @return
@@ -40,7 +40,25 @@ public class FileMappingController {
         }
         return R.ok(iUserFileService.pageList(page,userFile));
     }
-
+    /**
+     * 获取当前用户与文件映射列表（普通用户）
+     * @param page
+     * @param userFile
+     * @return
+     */
+    @RolesAllowed(value = {"mapping:userlist"})
+    @RequestMapping(value = "/userlist", method = RequestMethod.POST)
+    public Object loginlist(@RequestPart(name = "page", required = false) Page page,
+                       @RequestPart(name = "userFile", required = false) UserFile userFile) {
+        if(page==null){
+            page = new Page(1,10);//默认第1页，一页10条
+        }
+        if(userFile==null){
+            userFile = new UserFile();
+        }
+        userFile.setUsername(UserUtil.getUserName());
+        return R.ok(iUserFileService.pageList(page,userFile));
+    }
 
     /**
      * 删除用户文件关联
